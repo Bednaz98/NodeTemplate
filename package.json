@@ -6,13 +6,15 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "jest",
     "lint": "npx eslint . --max-warnings 0",
     "lint-fix": "eslint --fix",
     "build": "tsc -b",
-    "test-pack": "npm i && npm run build && npm pack",
-    "publish-npm": "npm i && npm run build && npm publish"
+    "test-pack": "npm i && npm run build && npm pack"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.5",
