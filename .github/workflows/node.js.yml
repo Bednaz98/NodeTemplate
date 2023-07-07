@@ -3,6 +3,10 @@
 
 name: Node.js CI
 
+env:
+  NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
 on:
   push:
     branches: ["main"]
@@ -48,11 +52,8 @@ jobs:
       - run: npm ci
       - run: npm config set registry https://npm.pkg.github.com
       - run: npm set //npm.pkg.github.com/:_authToken ${{ env.NODE_AUTH_TOKEN }}
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: npm run build --if-present
-      - run: npm version minor -m "v%s"
+      - run: npm version minor"
       # - run: git commit -m "version bump"
       # - run: git push
       # - run: git pull
