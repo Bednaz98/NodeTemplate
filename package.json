@@ -1,8 +1,11 @@
 {
-  "name": "nodetemplate",
+  "name": "@jabz/nodetemplate",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest",
     "lint": "npx eslint . --max-warnings 0",
