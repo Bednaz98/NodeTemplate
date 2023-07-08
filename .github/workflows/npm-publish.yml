@@ -45,9 +45,15 @@ jobs:
       - run: git fetch
       - run: npm version patch
       - run: git add .
-      - run: git push "https://${{ secrets.GITHUB_TOKEN}}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
-      - run: git commit -m "automated version bump"
-      - run: git fetch
+      # - run: git push "https://${{ secrets.GITHUB_TOKEN}}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
+      # - run: git commit -m "automated version bump"
+      # - run: git fetch
+      - run: VERSION=$(node -p "require('./package.json').version")
+      - run: git tag ${VERSION}
+      - run: git push "https://$GITHUB_ACTOR:${{ secrets.AUTO_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.AUTO_TOKEN}}
+      - run: git push "https://$GITHUB_ACTOR:${{ secrets.AUTO_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
         env:
           NODE_AUTH_TOKEN: ${{secrets.AUTO_TOKEN}}
       - run: npm publish
