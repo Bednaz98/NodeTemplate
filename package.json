@@ -12,8 +12,10 @@
   "scripts": {
     "test": "jest",
     "lint": "npx eslint . --max-warnings 0",
+    "increment": "npm version patch",
     "lint-fix": "eslint --fix",
     "build": "tsc -b",
+    "pr-test": "npm run lint && npm run test && npm run increment",
     "test-pack": "npm i && npm run build && npm pack"
   },
   "devDependencies": {

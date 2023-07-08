@@ -9,24 +9,24 @@ on:
   pull_request:
     branches: "*"
 jobs:
-  # quality:
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       node-version: [latest]
-  #       os: [ubuntu-latest, windows-latest, macOS-latest]
-  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: "npm"
-  #     - run: npm ci
-  #     - run: npm run build --if-present
-  #     - run: npm run lint
-  #     - run: npm test
+  quality:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run lint
+      - run: npm test
 
   publish-npm:
     # needs: quality
@@ -40,22 +40,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
-      - run: git config --global user.email "bednaz98@gmail.com"
-      - run: git config --global user.name "bednaz"
-      - run: git fetch
-      - run: npm version patch
-      - run: git add .
-      # - run: git push "https://${{ secrets.GITHUB_TOKEN}}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
-      # - run: git commit -m "automated version bump"
-      # - run: git fetch
-      - run: VERSION=$(node -p "require('./package.json').version")
-      - run: git tag ${VERSION}
-      - run: git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN}}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - run: git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN}}@github.com/$GITHUB_REPOSITORY.git" --tags
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
