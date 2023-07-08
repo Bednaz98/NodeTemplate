@@ -45,8 +45,8 @@ jobs:
       - run: git fetch
       - run: npm version patch
       - run: git add .
-      # - run: git commit -m "automated version bump"
       - run: git push "https://${{ secrets.AUTO_TOKEN}}@github.com/${{ github.repository }}" "${{ github.head_ref }}"
+      - run: git commit -m "automated version bump"
       - run: git fetch
         env:
           NODE_AUTH_TOKEN: ${{secrets.AUTO_TOKEN}}
