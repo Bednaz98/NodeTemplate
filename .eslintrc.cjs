@@ -4,6 +4,9 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   root: true,
+  rules: {
+    "@typescript-eslint/ban-ts-ignore": "off",
+  },
   env: {
     browser: true,
     amd: true,

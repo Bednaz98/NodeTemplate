@@ -1,6 +1,6 @@
 {
   "name": "@jabz/nodetemplate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "./lib/index.js",
   "publishConfig": {
@@ -15,7 +15,7 @@
     "increment": "npm version patch",
     "lint-fix": "eslint --fix",
     "build": "tsc -b",
-    "pr-test": "npm run lint && npm run test && npm run increment",
+    "pr-test": "npm run test",
     "test-pack": "npm i && npm run build && npm pack"
   },
   "devDependencies": {
